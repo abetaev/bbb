@@ -1,0 +1,89 @@
+version: '3'
+
+services:
+
+  discovery:
+    image: 'bbb/apps.infra.discovery'
+    ports:
+      - '8761:8080'
+    deploy:
+      labels:
+        traefik.port: 8080
+        traefik.frontend.rule: 'PathPrefixStrip:/discovery'
+
+  edge:
+    image: 'bbb/apps.infra.edge'
+    command: |
+      --eureka.client.service-url.defaultZone=http://discovery:8080/eureka/
+    depends_on:
+      - discovery
+    deploy:
+      labels:
+        - 'traefik.port=8765'
+        - 'traefik.frontend.rule=PathPrefixStrip:/api/'
+    ports:
+      - '8765:8080'
+
+  reverse-proxy:
+    image: 'bbb/apps.infra.reverse-proxy'
+    command: |
+      --api
+      --docker.swarmMode
+      --docker.endpoint=unix:///var/run/docker.sock
+      --logLevel=debug
+      --keepTrailingSlash
+      --eureka.endpoint=http://discovery:8080/eureka
+    ports:
+      - '8080:8080'
+      - '80:80'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/traefik.toml
+
+  account:
+    image: 'bbb/apps.security.account'
+    command: |
+      --eureka.client.service-url.defaultZone=http://discovery:8080/eureka/
+    deploy:
+      labels:
+        traefik.port: 8080
+        traefik.frontend.rule: 'PathPrefixStrip:/account/'
+    depends_on:
+      - discovery-svc
+
+
+  authentication:
+    image: 'bbb/apps.security.authentication'
+    depends_on:
+      - discovery
+    deploy:
+      labels:
+        traefik.port: 8080
+        traefik.frontend.rule: 'PathPrefixString:/auth/'
+    command: |
+      --eureka.client.service-url.defaultZone=http://discovery:8080/eureka/
+
+  openid-connect-server:
+    image: 'bbb/apps.security.openid-connect-server'
+    command: |
+      --ds.mongodb.host=mongodb
+    deploy:
+      labels:
+        traefik.port: 8080
+        traefik.frontend.rule: 'PathPrefix:/openid-connect-server-webapp/'
+
+  mongodb:
+    image: 'bbb/apps.db.mongo'
+
+  gravitee-am-management-api:
+    image: 'bbb/apps.security.gravitee-am-management-api'
+    command: |
+      --ds.mongo.host=mongodb
+
+  gravitee-am-ui:
+    image: 'bbb/apps.security.gravitee-am-ui'
+
+  gravitee-am-gateway:
+    image: 'bbb/apps.security.gravitee-am-gateway'
+    command: |
+      --ds.mongo.host=mongodb

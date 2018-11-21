@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  mongodb:
+    image: 'bbb/apps.db.mongo'
+
+  gravitee-am-management-api:
+    image: 'bbb/apps.security.gravitee-am-management-api'
+    ports:
+      - '8093:8093'
+    command: |
+      --ds.mongodb.host=mongodb
+
+  gravitee-am-ui:
+    image: 'bbb/apps.security.gravitee-am-ui'
+    ports:
+      - '80:80'
+
+  gravitee-am-gateway:
+    image: 'bbb/apps.security.gravitee-am-gateway'
+    ports:
+      - '8092:8092'
+    command: |
+      --ds.mongodb.host=mongodb

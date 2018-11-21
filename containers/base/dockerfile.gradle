@@ -1,0 +1,7 @@
+from 'debian:stable'
+
+runCommand 'apt-get update -y'
+runCommand 'apt-get install libterm-readline-gnu-perl curl -y --no-install-recommends'
+
+instruction 'HEALTHCHECK CMD /healthcheck'
+instruction 'ENTRYPOINT ["/entrypoint"]'

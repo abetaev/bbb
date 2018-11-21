@@ -1,0 +1,5 @@
+dependencies {
+
+    container project(':containers.base')
+
+}

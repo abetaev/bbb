@@ -1,0 +1,5 @@
+import pub.betaev.bbb.gradle.BBBSettings
+
+rootProject.name = 'bbb'
+
+apply plugin: BBBSettings

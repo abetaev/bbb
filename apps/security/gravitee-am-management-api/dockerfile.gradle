@@ -1,0 +1,2 @@
+runCommand "curl https://download.gravitee.io/graviteeio-am/components/gravitee-am-management-api/gravitee-am-management-api-standalone-2.0.5.zip -o /tmp/gravitee-am-management-api-standalone-2.0.5.zip"
+runCommand "unzip /tmp/gravitee-am-management-api-standalone-2.0.5.zip -d /usr/local"

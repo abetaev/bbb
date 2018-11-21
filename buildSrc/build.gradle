@@ -1,0 +1,16 @@
+dependencies {
+
+    compile 'gradle.plugin.org.ysb33r.gradle:nodejs-gradle-plugin:0.1'
+    compile 'com.bmuschko:gradle-docker-plugin:4.0.4'
+    compile 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-gradle-plugin:2.0.6.RELEASE'
+    compile 'io.franzbecker:gradle-lombok:1.14'
+    compile 'org.reflections:reflections:0.9.11'
+
+}
+
+repositories {
+
+    gradlePluginPortal()
+
+}

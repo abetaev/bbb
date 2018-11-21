@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "ERROR: entrypoint is not overridden." 1>&2
+exit 1

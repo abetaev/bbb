@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "WARNING: healthcheck is not implemented!" 2>&1
+exit 0

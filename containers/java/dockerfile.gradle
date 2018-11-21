@@ -1,0 +1,2 @@
+runCommand 'apt-get update -y'
+runCommand 'apt-get install openjdk-8-jre-headless unzip -y --no-install-recommends'

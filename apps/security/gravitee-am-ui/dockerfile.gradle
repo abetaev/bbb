@@ -1,0 +1,7 @@
+from 'httpd:2'
+
+runCommand 'apt-get update -y'
+runCommand 'apt-get install curl unzip -y'
+runCommand 'curl https://download.gravitee.io/graviteeio-am/components/gravitee-am-webui/gravitee-am-webui-2.0.5.zip -o /tmp/gravitee-am-webui.zip'
+runCommand 'unzip /tmp/gravitee-am-webui.zip -d /tmp'
+runCommand 'cp -r /tmp/gravitee-am-webui-2.0.5/* /usr/local/apache2/htdocs/'

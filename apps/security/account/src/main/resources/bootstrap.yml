@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: account-service
+
+---
+spring.profiles: container
+eureka:
+  client:
+    service-url:
+      default: http://discovery:8080/eureka

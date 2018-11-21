@@ -1,0 +1,3 @@
+dependencies {
+    container project(':containers.java')
+}

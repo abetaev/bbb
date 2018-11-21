@@ -1,0 +1,15 @@
+dependencies {
+
+    container project(':containers.java')
+
+    compile project(':apps.security.authentication-api')
+
+    compile project(':apps.security.account-api')
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+}

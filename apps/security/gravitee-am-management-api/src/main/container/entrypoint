@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/local/gravitee-am-management-api-standalone-2.0.5/bin/gravitee "${@}"
